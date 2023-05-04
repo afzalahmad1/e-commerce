@@ -89,7 +89,7 @@ function displayCheckoutItems() {
 
 function checkoutPage(){
   localStorage.setItem("totalPrice",JSON.stringify(total));
-  window.location.href = ""
+  window.location.href = "../razorpay/index.html"
 
 }
 
