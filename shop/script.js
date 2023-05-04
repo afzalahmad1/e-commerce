@@ -22,6 +22,7 @@ var innerHtml;
 (() => {
   // whenever page loads this function is called
   // fetching the data from localstorage
+
   if(JSON.parse(localStorage.getItem("currUser"))==null){
     window.location.href = "../login/login.html"
     return;
@@ -34,7 +35,8 @@ var innerHtml;
 
 
 
-let search = document.getElementById("search");
+
+let searchData = document.getElementById("searched-data");
 let mensData = document.getElementById("mens-clothing");
 let womensData = document.getElementById("womens-clothing");
 let electronicsData = document.getElementById("electronics");
@@ -77,6 +79,8 @@ function getDataFromAPI() {
 }
 getDataFromAPI();
 
+
+//extractig data from api and showing on page
 function mensCategoryShow() {
   innerHtml = "";
   mens.forEach((item) => {
@@ -185,10 +189,14 @@ function jeweleryCategoryShow() {
   });
   jeweleryData.innerHTML = innerHtml;
 }
- function showAllData(productsArr){
 
 
-  jeweleryData.style.display = "grid"
+//filtering by category
+ function showAllData(){
+
+
+   jeweleryData.style.display = "grid"
+   searchData.style.display = "none"
   womensData.style.display = "grid"
   electronicsData.style.display = "grid"
   mensData.style.display = "grid"
@@ -204,7 +212,8 @@ function jeweleryCategoryShow() {
  }
 
  function showMensData(){
-  mensData.style.display = "grid"
+   mensData.style.display = "grid"
+   searchData.style.display = "none"
   jeweleryData.style.display = "none"
   womensData.style.display = "none"
   electronicsData.style.display = "none"
@@ -218,6 +227,7 @@ function jeweleryCategoryShow() {
 
  function showWomensData(){
   womensData.style.display = "grid"
+  searchData.style.display = "none"
   jeweleryData.style.display = "none"
   mensData.style.display = "none"
   electronicsData.style.display = "none"
@@ -232,6 +242,7 @@ function jeweleryCategoryShow() {
 
  function showJeweleryData(){
    jeweleryData.style.display = "grid"
+   searchData.style.display = "none"
   womensData.style.display = "none"
   mensData.style.display = "none"
   electronicsData.style.display = "none"
@@ -247,6 +258,7 @@ function jeweleryCategoryShow() {
 
  function showElectronicsData(){
    electronicsData.style.display = "grid"
+   searchData.style.display = "none"
   jeweleryData.style.display = "none"
  womensData.style.display = "none"
  mensData.style.display = "none"
@@ -261,11 +273,14 @@ function jeweleryCategoryShow() {
 }
 
 
-// store cart items to localstorage
+//adding in cart
 function addToCart(id){
  let productsArr = JSON.parse(localStorage.getItem('Products') || []);
  cartItems = JSON.parse(localStorage.getItem('CartItems'));
- // console.log(productsArr)
+ if(cartItems == null){
+  cartItems = [];
+ }
+  console.log(cartItems)
   productsArr.forEach((product)=>{
     if(product.id == id){
       cartItems.push(product);
@@ -275,21 +290,44 @@ function addToCart(id){
 }
 
 
+// search functionality
+var arr = JSON.parse(localStorage.getItem("Products"));
+let searchedProduct="";
 
-let searchedProduct;;
-search.addEventListener("input", () => {
-  var arr = JSON.parse(localStorage.getItem("Products"));
+document.getElementById("search").addEventListener("input", () => {
   var newArr = arr.filter((item) =>
     item.title
       .toLowerCase()
-      .includes(search.value.trim().toLowerCase())
+      .includes(document.getElementById("search").value.trim().toLowerCase())
   );
- /* mensData.innerHTML = "";
-  womensData.innerHTML = "";
-  electronicsData.innerHTML = "";
-  jeweleryData.innerHTML = "";
+  console.log("before",mens);
+  displayData(newArr);
+});
+
+function searchByPrice(minVal,maxVal){
+  let priceRange = [];
+  for(let item in arr){
+    if(arr[item].price >= minVal && arr[item].price <= maxVal){
+      priceRange.push(arr[item]);
+  }
+}
+displayData(priceRange);
+}
+
+function displayData(arr){
+  searchData.style.display = "grid";
+  mensData.style.display = "none";
+  womensData.style.display = "none";
+  electronicsData.style.display = "none";
+  jeweleryData.style.display = "none";
+
+  mensTitle.style.display = "none"
+  jeweleryTitle.style.display = "none"
+  womensTitle.style.display = "none"
+  electronicsTitle.style.display = "none"
+
   searchedProduct = "";
-  newArr.forEach((item) => {
+  arr.forEach((item) => {
     searchedProduct += `
   <div class="item">
           <img src="${item.image}" alt="Item" />
@@ -311,8 +349,10 @@ search.addEventListener("input", () => {
           <button id="addBtn" onclick="addToCart(${item.id})">Add to Cart</button>
      </div>`;
   });
-  mensData.innerHTML = searchedProduct;*/
-});
+  //console.log( "data",searchedProduct)
+  console.log("after",mens);
+  searchData.innerHTML = searchedProduct;
+};
 
 
 function alertMessage(){

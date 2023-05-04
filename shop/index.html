@@ -77,7 +77,7 @@
             min="0"
             max="5"
             value="0"
-            list="values"
+            list="values" 
           />
           <datalist id="values">
             <option value="0" label="0"></option>
@@ -88,23 +88,26 @@
             <option value="5" label="5"></option>
           </datalist>
         </section>
+
+    
+
         <section>
           <title>Price Range</title>
           <ul>
             <li>
-              <input id="0-25" type="checkbox" name="prange" />
+              <input id="0-25" type="radio" name="prange" onclick="searchByPrice(0,25)"/>
               <label for="0-25">$0 to $25</label>
             </li>
             <li>
-              <input id="25-50" type="checkbox" name="prange" />
+              <input id="25-50" type="radio" name="prange" onclick="searchByPrice(25,50)"/>
               <label for="25-50">$25 to $50</label>
             </li>
             <li>
-              <input id="50-100" type="checkbox" name="prange" />
+              <input id="50-100" type="radio" name="prange" onclick="searchByPrice(50,100)"/>
               <label for="50-100">$50 to $100</label>
             </li>
             <li>
-              <input id="100on" type="checkbox" name="prange" />
+              <input id="100on" type="radio" name="prange" onclick="searchByPrice(100,100000000)"/>
               <label for="100on">$100 onwards</label>
             </li>
           </ul>
@@ -119,25 +122,29 @@
           <div class="filter"  onclick="showJeweleryData()">Jewellery</div>
           <div class="filter"  onclick="showElectronicsData()">Electronics</div>
         </div>
-        <section>
+        <section >
           <title id="mens-title">Men's Clothing</title>
+          <div class="items" id="searched-data">
+          </div>
+        </section>
+        <section class="section">
           <div class="items" id="mens-clothing">
           </div>
         </section>
 
-        <section>
+        <section class="section"> 
           <title id="womens-title">Women's Clothing</title>
           <div class="items" id="womens-clothing">
           </div>
         </section>
 
-        <section>
+        <section class="section">
           <title id="electronics-title">Electronics</title>
           <div class="items" id="electronics">
           </div>
         </section>
 
-        <section>
+        <section class="section">
           <title id="jewelery-title">Jewelery</title>
           <div class="items" id="jewelery">
           </div>

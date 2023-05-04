@@ -28,9 +28,9 @@ function removeItem(id) {
      displayCheckoutItems();
     }
   })*/
-  for (let item of cartItems) {
-    if (item.id == id) {
-      console.log(item.id);
+  for (let item=0;item<cartItems.length;item++) {
+    if (cartItems[item].id == id) {
+      console.log(cartItems[item].id);
       cartItems.splice(item, 1);
       // localStorage.removeItem("item")
       localStorage.setItem("CartItems", JSON.stringify(cartItems));
