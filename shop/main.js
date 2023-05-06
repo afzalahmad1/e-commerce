@@ -433,9 +433,16 @@ function getSizeValue(val){
     })
     displayData(newArr)
 }
+/*
+document.querySelector('[name="color"]').addEventListener("change",()=>{
+  let newArr = arr.filter((item)=>{
+    let color = item.colors;
+    return color.includes(val);
+})
+displayData(newArr)
+})
 
-
-
+*/
 
 
 
