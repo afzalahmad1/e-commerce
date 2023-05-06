@@ -302,16 +302,15 @@ function addToCart(id){
 
 
 // search functionality
-var arr = JSON.parse(localStorage.getItem("Products"));
-let searchedProduct="";
 
 document.getElementById("search").addEventListener("input", () => {
-  var newArr = arr.filter((item) =>
+  let arr = JSON.parse(localStorage.getItem("Products"));
+  let newArr = arr.filter((item) =>
     item.title
       .toLowerCase()
       .includes(document.getElementById("search").value.trim().toLowerCase())
   );
-  console.log("before",mens);
+  //console.log("before",mens);
   displayData(newArr);
 });
 
@@ -337,7 +336,7 @@ function displayData(arr){
   womensTitle.style.display = "none"
   electronicsTitle.style.display = "none"
 
-  searchedProduct = "";
+   let searchedProduct = "";
   arr.forEach((item) => {
     searchedProduct += `
     <div class="item">
@@ -418,7 +417,7 @@ function colorSlection() {
 
 
 function getColorValue(val){
-   // console.log(val);
+    let arr = JSON.parse(localStorage.getItem("Products"))
     let newArr = arr.filter((item)=>{
         let color = item.colors;
         return color.includes(val);
@@ -426,6 +425,7 @@ function getColorValue(val){
     displayData(newArr)
 }
 function getSizeValue(val){
+  let arr = JSON.parse(localStorage.getItem("Products"))
     //console.log(val);
     let newArr = arr.filter((item)=>{
         let size = item.sizes;
