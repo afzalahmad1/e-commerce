@@ -27,44 +27,46 @@
           <title>Colors</title>
           <ul>
             <li>
-              <input id="red" type="checkbox" name="color" />
+              <input id="red" type="radio" onchange="getColorValue(this.value)" name="color" value="Red"/>
               <label for="red">Red</label>
             </li>
             <li>
-              <input id="blue" type="checkbox" name="color" />
+              <input id="blue" type="radio" onchange="getColorValue(this.value)"  name="color" value="Blue"/>
               <label for="blue">Blue</label>
             </li>
             <li>
-              <input id="green" type="checkbox" name="color" />
+              <input id="green" type="radio" onchange="getColorValue(this.value)" name="color" value="Green"/>
               <label for="green">Green</label>
             </li>
             <li>
-              <input id="black" type="checkbox" name="color" />
+              <input id="black" type="radio" onchange="getColorValue(this.value)"  name="color" value="Black"/>
               <label for="black">Black</label>
             </li>
             <li>
-              <input id="white" type="checkbox" name="color" />
+              <input id="white" type="radio" onchange="getColorValue(this.value)"  name="color"  value="White"/>
               <label for="white">White</label>
             </li>
           </ul>
+
+
         </section>
         <section>
           <title>Sizes</title>
           <ul>
             <li>
-              <input id="s" type="checkbox" name="color" />
+              <input id="s" type="radio" onchange="getSizeValue(this.value)" name="sizes" value="S"/>
               <label for="s">S</label>
             </li>
             <li>
-              <input id="m" type="checkbox" name="color" />
+              <input id="m" type="radio" onchange="getSizeValue(this.value)" name="sizes" value="M"/>
               <label for="m">M</label>
             </li>
             <li>
-              <input id="l" type="checkbox" name="color" />
+              <input id="l" type="radio" onchange="getSizeValue(this.value)" name="sizes" value="L"/>
               <label for="l">L</label>
             </li>
             <li>
-              <input id="xl" type="checkbox" name="color" />
+              <input id="xl" type="radio" onchange="getSizeValue(this.value)" name="sizes" value="XL"/>
               <label for="xl">XL</label>
             </li>
           </ul>
@@ -152,6 +154,6 @@
 
       </main-content>
     </main>
-    <script src="./script.js"></script>
+    <script src="./main.js"></script>
   </body>
 </html>

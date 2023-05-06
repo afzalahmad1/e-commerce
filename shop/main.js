@@ -11,7 +11,6 @@ const produtc = {
 };
 */
 var color = [];
-var size = [];
 var mens = [];
 var womens = [];
 var electronics = [];
@@ -22,7 +21,9 @@ var innerHtml;
 
 (() => {
 
+    getDataFromAPI();
   if(JSON.parse(localStorage.getItem("currUser"))==null){
+    
     window.location.href = "../login/login.html"
     return;
   }
@@ -51,11 +52,21 @@ function getDataFromAPI() {
     .then((data) => {
       console.log("Data", data);
 
-      //save products in localstorage
-      //color = colorSelection()
+      //set size
+      data.forEach((item)=>{
+        let size=sizeSelection();
+       // console.log("out",size);
+        item.sizes = size;
+      })
 
+      //set color
+      data.forEach((item)=>{
+        let color=colorSlection();
+        //console.log("in",color);
+        item.colors = color;
+      })
       localStorage.setItem("Products",JSON.stringify(data));
-      innerHtml = "";
+      //innerHtml = "";
       mens = data.filter((item) => {
         return item.category == "men's clothing";
       });
@@ -77,7 +88,7 @@ function getDataFromAPI() {
     })
     .catch((err) => {});
 }
-getDataFromAPI();
+
 
 
 //extractig data from api and showing on page
@@ -90,14 +101,14 @@ function mensCategoryShow() {
           <div class="info">
             <div class="row">
               <div class="price" id="price">$${item.price}</div>
-              <div class="sized">S,M,L</div>
+              <div class="sized">${item.sizes}</div>
             </div>
             <div class="colors">
               Colors:
               <div class="row">
-                <div class="circle" style="background-color: #000"></div>
-                <div class="circle" style="background-color: #4938af"></div>
-                <div class="circle" style="background-color: #203d3e"></div>
+                <div class="circle" style="background-color: ${item.colors[0]}"></div>
+                <div class="circle" style="background-color: ${item.colors[1]}"></div>
+                <div class="circle" style="background-color: ${item.colors[2]}"></div>
               </div>
             </div>
             <div class="row">Rating: ${item.rating.rate}</div>
@@ -113,24 +124,24 @@ function womensCategoryShow() {
   womens.forEach((item) => {
     innerHtml += `
     <div class="item">
-            <img src="${item.image}" alt="Item" />
-            <div class="info">
-              <div class="row">
-                <div class="price" id="price">$${item.price}</div>
-                <div class="sized">S,M,L</div>
-              </div>
-              <div class="colors">
-                Colors:
-                <div class="row">
-                  <div class="circle" style="background-color: #000"></div>
-                  <div class="circle" style="background-color: #4938af"></div>
-                  <div class="circle" style="background-color: #203d3e"></div>
-                </div>
-              </div>
-              <div class="row">Rating: ${item.rating.rate}</div>
+          <img src="${item.image}" alt="Item" />
+          <div class="info">
+            <div class="row">
+              <div class="price" id="price">$${item.price}</div>
+              <div class="sized">${item.sizes}</div>
             </div>
-            <button id="addBtn" onclick="addToCart(${item.id})">Add to Cart</button>
-       </div>`;
+            <div class="colors">
+              Colors:
+              <div class="row">
+                <div class="circle" style="background-color: ${item.colors[0]}"></div>
+                <div class="circle" style="background-color: ${item.colors[1]}"></div>
+                <div class="circle" style="background-color: ${item.colors[2]}"></div>
+              </div>
+            </div>
+            <div class="row">Rating: ${item.rating.rate}</div>
+          </div>
+          <button id="addBtn" onclick="addToCart(${item.id})">Add to Cart</button>
+     </div>`;
   });
   womensData.innerHTML = innerHtml;
 }
@@ -140,24 +151,24 @@ function electronicscategoryshow() {
   electronics.forEach((item) => {
     innerHtml += `
     <div class="item">
-            <img src="${item.image}" alt="Item" />
-            <div class="info">
-              <div class="row">
-                <div class="price" id="price">$${item.price}</div>
-                <div class="sized">S,M,L</div>
-              </div>
-              <div class="colors">
-                Colors:
-                <div class="row">
-                  <div class="circle" style="background-color: #000"></div>
-                  <div class="circle" style="background-color: #4938af"></div>
-                  <div class="circle" style="background-color: #203d3e"></div>
-                </div>
-              </div>
-              <div class="row">Rating: ${item.rating.rate}</div>
+          <img src="${item.image}" alt="Item" />
+          <div class="info">
+            <div class="row">
+              <div class="price" id="price">$${item.price}</div>
+              <div class="sized">${item.sizes}</div>
             </div>
-            <button id="addBtn" onclick="addToCart(${item.id})">Add to Cart</button>
-       </div>
+            <div class="colors">
+              Colors:
+              <div class="row">
+                <div class="circle" style="background-color: ${item.colors[0]}"></div>
+                <div class="circle" style="background-color: ${item.colors[1]}"></div>
+                <div class="circle" style="background-color: ${item.colors[2]}"></div>
+              </div>
+            </div>
+            <div class="row">Rating: ${item.rating.rate}</div>
+          </div>
+          <button id="addBtn" onclick="addToCart(${item.id})">Add to Cart</button>
+     </div>
        `;
   });
   electronicsData.innerHTML = innerHtml;
@@ -168,24 +179,24 @@ function jeweleryCategoryShow() {
   jewelery.forEach((item) => {
     innerHtml += `
     <div class="item">
-            <img src="${item.image}" alt="Item" />
-            <div class="info">
-              <div class="row">
-                <div class="price" id="price">$${item.price}</div>
-                <div class="sized">S,M,L</div>
-              </div>
-              <div class="colors">
-                Colors:
-                <div class="row">
-                  <div class="circle" style="background-color: #000"></div>
-                  <div class="circle" style="background-color: #4938af"></div>
-                  <div class="circle" style="background-color: #203d3e"></div>
-                </div>
-              </div>
-              <div class="row">Rating: ${item.rating.rate}</div>
+          <img src="${item.image}" alt="Item" />
+          <div class="info">
+            <div class="row">
+              <div class="price" id="price">$${item.price}</div>
+              <div class="sized">${item.sizes}</div>
             </div>
-            <button id="addBtn" onclick="addToCart(${item.id})">Add to Cart</button>
-       </div>`;
+            <div class="colors">
+              Colors:
+              <div class="row">
+                <div class="circle" style="background-color: ${item.colors[0]}"></div>
+                <div class="circle" style="background-color: ${item.colors[1]}"></div>
+                <div class="circle" style="background-color: ${item.colors[2]}"></div>
+              </div>
+            </div>
+            <div class="row">Rating: ${item.rating.rate}</div>
+          </div>
+          <button id="addBtn" onclick="addToCart(${item.id})">Add to Cart</button>
+     </div>`;
   });
   jeweleryData.innerHTML = innerHtml;
 }
@@ -329,25 +340,25 @@ function displayData(arr){
   searchedProduct = "";
   arr.forEach((item) => {
     searchedProduct += `
-  <div class="item">
-          <img src="${item.image}" alt="Item" />
-          <div class="info">
-            <div class="row">
-              <div class="price" id="price">$${item.price}</div>
-              <div class="sized">S,M,L</div>
-            </div>
-            <div class="colors">
-              Colors:
-              <div class="row">
-                <div class="circle" style="background-color: #000"></div>
-                <div class="circle" style="background-color: #4938af"></div>
-                <div class="circle" style="background-color: #203d3e"></div>
-              </div>
-            </div>
-            <div class="row">Rating: ${item.rating.rate}</div>
-          </div>
-          <button id="addBtn" onclick="addToCart(${item.id})">Add to Cart</button>
-     </div>`;
+    <div class="item">
+    <img src="${item.image}" alt="Item" />
+    <div class="info">
+      <div class="row">
+        <div class="price" id="price">$${item.price}</div>
+        <div class="sized">${item.sizes}</div>
+      </div>
+      <div class="colors">
+        Colors:
+        <div class="row">
+          <div class="circle" style="background-color: ${item.colors[0]}"></div>
+          <div class="circle" style="background-color: ${item.colors[1]}"></div>
+          <div class="circle" style="background-color: ${item.colors[2]}"></div>
+        </div>
+      </div>
+      <div class="row">Rating: ${item.rating.rate}</div>
+    </div>
+    <button id="addBtn" onclick="addToCart(${item.id})">Add to Cart</button>
+</div>`;
   });
   //console.log( "data",searchedProduct)
   console.log("after",mens);
@@ -368,40 +379,60 @@ slider.addEventListener("change",()=>{
   })
   displayData(newArr)
 })
-/*
+
 function sizeSelection() {
-  size = [];
-  let s = ["S", "M", "L", "XL"];
-  let i = 0, j = 0; k = 0;
-  while (i == j || j == k || k == i) {
-    i = Math.floor(Math.random() * s.length);
-    j = Math.floor(Math.random() * s.length);
-    k = Math.floor(Math.random() * s.length);
-  }
-  size.push(s[i]);
-  size.push(s[j]);
-  size.push(s[k]);
+    let size=[]
+   let s = ["S", "M", "L", "XL"];
+   let i,j,k;
+     i = Math.floor(Math.random() * s.length);
+     size.push(s[i]);
+     s.splice(i,1)
+     j = Math.floor(Math.random() * s.length);
+     size.push(s[j]);
+     s.splice(j,1)
+     k = Math.floor(Math.random() * s.length);
+     size.push(s[k]);
+     s.splice(k,1)
+    // console.log(size)
+     return size;
 }
 
 
 
 function colorSlection() {
-  color = [];
-  let s = ["red", "blue", "green", "black", "white"];
-  let i = 0, j = 0; k = 0;
-  while (i == j || j == k || k == i) {
-    i = Math.floor(Math.random() * s.length);
-    j = Math.floor(Math.random() * s.length);
-    k = Math.floor(Math.random() * s.length);
-  }
-  color.push(s[i]);
-  color.push(s[j]);
-  color.push(s[k]);
+    let color=[]
+    let s = ["Red", "Blue", "Green", "Black"];
+    let i,j,k;
+      i = Math.floor(Math.random() * s.length);
+      color.push(s[i]);
+      s.splice(i,1)
+      j = Math.floor(Math.random() * s.length);
+      color.push(s[j]);
+      s.splice(j,1)
+      k = Math.floor(Math.random() * s.length);
+      color.push(s[k]);
+      s.splice(k,1)
+     // console.log(size)
+      return color;
 }
-*/
 
 
-
+function getColorValue(val){
+   // console.log(val);
+    let newArr = arr.filter((item)=>{
+        let color = item.colors;
+        return color.includes(val);
+    })
+    displayData(newArr)
+}
+function getSizeValue(val){
+    //console.log(val);
+    let newArr = arr.filter((item)=>{
+        let size = item.sizes;
+        return size.includes(val);
+    })
+    displayData(newArr)
+}
 
 
 

@@ -50,14 +50,14 @@ function displayCartItemsList() {
           <div class="info">
             <div class="row">
               <div class="price" id="price">$${item.price}</div>
-              <div class="sized">S,M,L</div>
+              <div class="sized">${item.sizes}</div>
             </div>
             <div class="colors">
               Colors:
               <div class="row">
-                <div class="circle" style="background-color: #000"></div>
-                <div class="circle" style="background-color: #4938af"></div>
-                <div class="circle" style="background-color: #203d3e"></div>
+                <div class="circle" style="background-color: ${item.colors[0]}"></div>
+                <div class="circle" style="background-color: ${item.colors[1]}"></div>
+                <div class="circle" style="background-color: ${item.colors[2]}"></div>
               </div>
             </div>
             <div class="row">Rating: ${item.rating.rate}</div>
