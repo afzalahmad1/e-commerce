@@ -316,6 +316,7 @@ document.getElementById("search").addEventListener("input", () => {
 
 function searchByPrice(minVal,maxVal){
   let priceRange = [];
+  let arr = JSON.parse(localStorage.getItem("Products"))
   for(let item in arr){
     if(arr[item].price >= minVal && arr[item].price <= maxVal){
       priceRange.push(arr[item]);
@@ -360,7 +361,7 @@ function displayData(arr){
 </div>`;
   });
   //console.log( "data",searchedProduct)
-  console.log("after",mens);
+  //console.log("after",mens);
   searchData.innerHTML = searchedProduct;
 };
 
@@ -372,7 +373,8 @@ function alertMessage(){
 
 let slider = document.getElementById("range");
 slider.addEventListener("change",()=>{
-  console.log(arr);
+  let arr = JSON.parse(localStorage.getItem("Products"))
+ // console.log(arr);
   let newArr = arr.filter((item)=>{
     return Math.floor(item.rating.rate) == slider.value
   })
